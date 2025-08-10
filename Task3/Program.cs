@@ -14,9 +14,74 @@
                 Console.WriteLine("C - Clear the list ");
                 Console.WriteLine("Q - Quit ");
                 Console.Write("Enter your choice : ");
-                char choice = Console.ReadLine().ToLower()[0];
+                char choice = Console.ReadLine().ToLower()[0]; 
                 return choice;
             //Console.WriteLine(choice);
+        }
+
+        static void Switch_Choices ()
+        {
+            char choice = Menu();
+            List<int> numbers = new List<int>();
+            //numbers.Add(1);
+            //numbers.Add(2);
+            //numbers.Add(3);
+            while (choice != 'q')
+            {
+                switch (choice)
+                {
+                    case 'p':
+                        printList(numbers);
+                        Console.Write("[");
+                        for (int i = 0; i < numbers.Count; i++)
+                        {
+                            Console.Write(" " + numbers[i] + " ");
+                        }
+                        Console.Write("]\n");
+                        break;
+                    case 'a':
+                        Console.Write("enter a number to add : ");
+                        int number = Convert.ToInt32(Console.ReadLine());
+                        addNumber(number, numbers);
+                        break;
+                    case 'm':
+                        double value = meanValue(numbers);
+                        if (value != 0)
+                            Console.WriteLine($"The Mean is : {value}");
+                        else
+                            Console.WriteLine("Unable to calculate the mean - no data");
+                        break;
+                    case 's':
+                        if (smallestNumber(numbers) != 0)
+                            Console.WriteLine($"The Smallest number is : {smallestNumber(numbers)}");
+                        else
+                            Console.WriteLine("Unable to determine the smallest number - list is empty");
+                        break;
+                    case 'l':
+                        if (largestNumber(numbers) != 0)
+                            Console.WriteLine($"The Largest number is : {largestNumber(numbers)}");
+                        else
+                            Console.WriteLine("Unable to determine the largest number - list is empty");
+                        break;
+                    case 'f':
+                        Console.Write("enter a number to find :");
+                        int num = Convert.ToInt32(Console.ReadLine());
+                        if (findNumber(num, numbers) != -1)
+                            Console.WriteLine($"the number {num} is found at index {findNumber(num, numbers)}");
+                        else
+                            Console.WriteLine($"the number {num} not found");
+                        break;
+                    case 'c':
+                        clearList(numbers);
+                        Console.WriteLine("List is cleared");
+                        break;
+                    default:
+                        Console.WriteLine("wrong choice");
+                        break;
+                }
+                choice = Menu();
+            }
+            Console.WriteLine("Goodbye");
         }
 
         static List<int> printList(List<int> numbers)
@@ -107,67 +172,7 @@
 
 
         static void Main(string[] args) {
-            char choice = Menu();
-            List<int> numbers = new List<int>();
-            //numbers.Add(1);
-            //numbers.Add(2);
-            //numbers.Add(3);
-            while (choice != 'q')
-            {
-                switch (choice)
-                {
-                    case 'p':
-                        printList(numbers);
-                        Console.Write("[");
-                        for (int i = 0; i < numbers.Count; i++)
-                        {
-                            Console.Write(" " + numbers[i] + " ");
-                        }
-                        Console.Write("]\n");
-                        break;
-                    case 'a':
-                        Console.Write("enter a number to add : ");
-                        int number = Convert.ToInt32(Console.ReadLine());
-                        addNumber(number, numbers);
-                        break;
-                    case 'm':
-                        double value = meanValue(numbers);
-                        if (value != 0)
-                            Console.WriteLine($"The Mean is : {value}");
-                        else
-                            Console.WriteLine("check the list");
-                        break;
-                    case 's':
-                        if (smallestNumber(numbers) != 0)
-                            Console.WriteLine($"The Smallest number is : {smallestNumber(numbers)}");
-                        else
-                            Console.WriteLine("check the list");
-                        break;
-                    case 'l':
-                        if (largestNumber(numbers) != 0)
-                            Console.WriteLine($"The Largest number is : {largestNumber(numbers)}");
-                        else
-                            Console.WriteLine("check the list");
-                        break;
-                    case 'f':
-                        Console.Write("enter a number to find :");
-                        int num = Convert.ToInt32(Console.ReadLine());
-                        if (findNumber(num, numbers) != -1)
-                            Console.WriteLine($"the number {num} is found at index {findNumber(num, numbers)}");
-                        else
-                            Console.WriteLine($"the number {num} not found");
-                        break;
-                    case 'c':
-                        clearList(numbers);
-                        Console.WriteLine("List is cleared");
-                        break;
-                    default:
-                        Console.WriteLine("wrong choice");
-                        break;
-                }
-                choice = Menu();
-            }
-            Console.WriteLine("Bye");
+            Switch_Choices();
         }
         }
     }
